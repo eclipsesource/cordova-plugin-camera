@@ -193,7 +193,7 @@ static NSString* MIME_JPEG    = @"image/jpeg";
                             [weakSelf sendNoPermissionResult:command.callbackId];
                         }]];
                         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
                             [weakSelf sendNoPermissionResult:command.callbackId];
                         }]];
                         [weakSelf.viewController presentViewController:alertController animated:YES completion:nil];
@@ -304,7 +304,7 @@ static NSString* MIME_JPEG    = @"image/jpeg";
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if([navigationController isKindOfClass:[UIImagePickerController class]]){
-        
+
         // If popoverWidth and popoverHeight are specified and are greater than 0, then set popover size, else use apple's default popoverSize
         NSDictionary* options = self.pickerController.pictureOptions.popoverOptions;
         if(options) {
@@ -315,8 +315,8 @@ static NSString* MIME_JPEG    = @"image/jpeg";
                 [viewController setPreferredContentSize:CGSizeMake(popoverWidth,popoverHeight)];
             }
         }
-        
-        
+
+
         UIImagePickerController* cameraPicker = (UIImagePickerController*)navigationController;
 
         if(![cameraPicker.mediaTypes containsObject:(NSString*)kUTTypeImage]){
@@ -386,11 +386,11 @@ static NSString* MIME_JPEG    = @"image/jpeg";
 
 - (NSString*) formatAsDataURI:(NSData*) data withMIME:(NSString*) mime {
     NSString* base64 = toBase64(data);
-    
+
     if (base64 == nil) {
         return nil;
     }
-    
+
     return [NSString stringWithFormat:@"data:%@;base64,%@", mime, base64];
 }
 
@@ -398,7 +398,7 @@ static NSString* MIME_JPEG    = @"image/jpeg";
 {
     NSString* mime = nil;
     NSData* data = [self processImage: image info: info options: options outMime: &mime];
-    
+
     return [self formatAsDataURI: data withMIME: mime];
 }
 
@@ -476,8 +476,8 @@ static NSString* MIME_JPEG    = @"image/jpeg";
         default:
             break;
     };
-    
-    
+
+
     return data;
 }
 
@@ -612,7 +612,7 @@ static NSString* MIME_JPEG    = @"image/jpeg";
         {
             image = [self retrieveImage:info options:options];
             NSData* data = [self processImage:image info:info options:options];
-            
+
             if (data) {
                 if (pickerController.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
                     NSMutableData *imageDataWithExif = [NSMutableData data];
@@ -641,7 +641,7 @@ static NSString* MIME_JPEG    = @"image/jpeg";
                     else {
                         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[self urlTransformer:[NSURL fileURLWithPath:filePath]] absoluteString]];
                     }
-                    
+
                 } else if (pickerController.sourceType != UIImagePickerControllerSourceTypeCamera || !options.usesGeolocation) {
                     // No need to save file if usesGeolocation is true since it will be saved after the location is tracked
                     NSString* extension = options.encodingType == EncodingTypePNG? @"png" : @"jpg";
@@ -840,7 +840,7 @@ static NSString* MIME_JPEG    = @"image/jpeg";
 {
     CDVPictureOptions* options = self.pickerController.pictureOptions;
     CDVPluginResult* result = nil;
-   
+
     NSMutableData *imageDataWithExif = [NSMutableData data];
 
     if (self.metadata) {

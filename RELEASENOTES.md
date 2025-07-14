@@ -20,6 +20,12 @@
 -->
 # Release Notes
 
+### Unreleased
+
+**Fix:**
+
+* [GH-928](https://github.com/apache/cordova-plugin-camera/issues/928) fix(ios): Fixed Settings button not working on iOS 18 with Xcode 16 by using modern `openURL:options:completionHandler:` API instead of deprecated `openURL:` method
+
 ### 8.0.0 (Oct 30, 2024)
 
 **Breaking Changes:**
@@ -152,7 +158,7 @@
 * Update CONTRIBUTING.md
 * [GH-551](https://github.com/apache/cordova-plugin-camera/pull/551) Fix UI API called on a background thread
 * [GH-576](https://github.com/apache/cordova-plugin-camera/pull/576) ci: updates Node.js versions
-* [GH-575](https://github.com/apache/cordova-plugin-camera/pull/575) chore(npm): adds ignore list 
+* [GH-575](https://github.com/apache/cordova-plugin-camera/pull/575) chore(npm): adds ignore list
 * [GH-513](https://github.com/apache/cordova-plugin-camera/pull/513) docs(README): remove confusing comment
 * [GH-512](https://github.com/apache/cordova-plugin-camera/pull/512) docs(README): remove orphan **Windows** phone 7 note
 * [GH-306](https://github.com/apache/cordova-plugin-camera/pull/306) ImagePicker returning same image
@@ -325,7 +331,7 @@
 * [CB-10636](https://issues.apache.org/jira/browse/CB-10636) Add JSHint for plugins
 * [CB-10639](https://issues.apache.org/jira/browse/CB-10639) Appium tests: Added some timeouts, Taking a screenshot on failure, Retry taking a picture up to 3 times, Try to restart the Appium session if it's lost
 * [CB-10552](https://issues.apache.org/jira/browse/CB-10552) Replacing images in README.md.
-* Added a lot of more cases to get the real path on **Android** 
+* Added a lot of more cases to get the real path on **Android**
 * [CB-10625](https://issues.apache.org/jira/browse/CB-10625) **Android** getPicture fails when getting a photo from the Photo Library - Google Photos
 * [CB-10619](https://issues.apache.org/jira/browse/CB-10619) Appium tests: Properly switch to webview on **Android**
 * [CB-10397](https://issues.apache.org/jira/browse/CB-10397) Added Appium tests
@@ -333,7 +339,7 @@
 * chore: edit package.json license to match SPDX id
 * [CB-10539](https://issues.apache.org/jira/browse/CB-10539) Commenting out the verySmallQvga maxResolution option on **Windows**
 * [CB-10541](https://issues.apache.org/jira/browse/CB-10541) Changing default maxResoltion to be highestAvailable for CameraCaptureUI on **Windows**
-* [CB-10113](https://issues.apache.org/jira/browse/CB-10113) **Browse** - Layer camera UI on top of all! 
+* [CB-10113](https://issues.apache.org/jira/browse/CB-10113) **Browse** - Layer camera UI on top of all!
 * [CB-10502](https://issues.apache.org/jira/browse/CB-10502) **Browser** - Fix camera plugin exception in Chrome when click capture.
 * Adding comments
 * Camera tapping fix on **Windows**
@@ -355,7 +361,7 @@
 * [CB-9910](https://issues.apache.org/jira/browse/CB-9910) Add permission request for some gallery requests for **Android**
 * [CB-7668](https://issues.apache.org/jira/browse/CB-7668) Adding a sterner warning for `allowedit` on **Android**
 * Fixing contribute link.
-* Using the `CordovaResourceApi` to fine paths of files in the background thread.  If the file doesn't exist, return the content `URI`. 
+* Using the `CordovaResourceApi` to fine paths of files in the background thread.  If the file doesn't exist, return the content `URI`.
 * Add engine tag for **Cordova-Android 5.0.x**
 * [CB-9583](https://issues.apache.org/jira/browse/CB-9583): Added support for **Marshmallow** permissions (**Android 6.0**)
 * Try to use `realpath` filename instead of default `modified.jpg`
@@ -365,7 +371,7 @@
 * [CB-9622](https://issues.apache.org/jira/browse/CB-9622) **WP8** Camera Option `destinationType:NATIVE_URI` is a `NO-OP`
 * [CB-9623](https://issues.apache.org/jira/browse/CB-9623) Fixes various issues when `encodingType` set to `png`
 * [CB-9591](https://issues.apache.org/jira/browse/CB-9591) Retaining aspect ratio when resizing
-* [CB-9443](https://issues.apache.org/jira/browse/CB-9443) Pick correct `maxResolution` 
+* [CB-9443](https://issues.apache.org/jira/browse/CB-9443) Pick correct `maxResolution`
 * [CB-9151](https://issues.apache.org/jira/browse/CB-9151) Trigger `captureAction` only once
 * [CB-9413](https://issues.apache.org/jira/browse/CB-9413) Close `RandomAccessStream` once copied
 * [CB-5661](https://issues.apache.org/jira/browse/CB-5661) Remove outdated **iOS** quirks about memory
