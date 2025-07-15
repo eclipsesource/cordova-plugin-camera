@@ -23,8 +23,10 @@
 ### Unreleased
 
 **Fix:**
-
 * [GH-928](https://github.com/apache/cordova-plugin-camera/issues/928) fix(ios): Fixed Settings button not working on iOS 18 with Xcode 16 by using modern `openURL:options:completionHandler:` API instead of deprecated `openURL:` method
+
+**Feature:**
+* feat(ios): Added support for customizing the texts in the permission denied dialog through the camera options `cameraPermissionDeniedMessage`, `cameraRollPermissionDeniedMessage`, `cameraPermissionOKButtonText`, and `cameraPermissionSettingsButtonText`.
 
 ### 8.0.0 (Oct 30, 2024)
 

@@ -55,6 +55,11 @@ typedef NSUInteger CDVMediaType;
 @property (strong) NSDictionary* popoverOptions;
 @property (assign) UIImagePickerControllerCameraDevice cameraDirection;
 
+@property (strong) NSString* cameraPermissionDeniedMessage;
+@property (strong) NSString* cameraRollPermissionDeniedMessage;
+@property (strong) NSString* cameraPermissionOKButtonText;
+@property (strong) NSString* cameraPermissionSettingsButtonText;
+
 @property (assign) BOOL popoverSupported;
 @property (assign) BOOL usesGeolocation;
 @property (assign) BOOL cropToSize;

@@ -85,6 +85,10 @@ static NSString* MIME_JPEG    = @"image/jpeg";
     pictureOptions.saveToPhotoAlbum = [[command argumentAtIndex:9 withDefault:@(NO)] boolValue];
     pictureOptions.popoverOptions = [command argumentAtIndex:10 withDefault:nil];
     pictureOptions.cameraDirection = [[command argumentAtIndex:11 withDefault:@(UIImagePickerControllerCameraDeviceRear)] unsignedIntegerValue];
+    pictureOptions.cameraPermissionDeniedMessage = [command argumentAtIndex:12 withDefault:nil];
+    pictureOptions.cameraRollPermissionDeniedMessage = [command argumentAtIndex:13 withDefault:nil];
+    pictureOptions.cameraPermissionOKButtonText = [command argumentAtIndex:14 withDefault:nil];
+    pictureOptions.cameraPermissionSettingsButtonText = [command argumentAtIndex:15 withDefault:nil];
 
     pictureOptions.popoverSupported = NO;
     pictureOptions.usesGeolocation = NO;
@@ -134,6 +138,42 @@ static NSString* MIME_JPEG    = @"image/jpeg";
     return [(NSNumber*)useGeo boolValue];
 }
 
+- (NSString*)cameraPermissionDeniedMessageWithOptions:(CDVPictureOptions*)options
+{
+    NSString* message = options.cameraPermissionDeniedMessage;
+    if (message == nil || [message length] == 0) {
+        message = @"Access to the camera has been prohibited; please enable it in the Settings app to continue.";
+    }
+    return message;
+}
+
+- (NSString*)cameraRollPermissionDeniedMessageWithOptions:(CDVPictureOptions*)options
+{
+    NSString* message = options.cameraRollPermissionDeniedMessage;
+    if (message == nil || [message length] == 0) {
+        message = @"Access to the camera roll has been prohibited; please enable it in the Settings to continue.";
+    }
+    return message;
+}
+
+- (NSString*)cameraPermissionOKButtonTextWithOptions:(CDVPictureOptions*)options
+{
+    NSString* buttonText = options.cameraPermissionOKButtonText;
+    if (buttonText == nil || [buttonText length] == 0) {
+        buttonText = @"OK";
+    }
+    return buttonText;
+}
+
+- (NSString*)cameraPermissionSettingsButtonTextWithOptions:(CDVPictureOptions*)options
+{
+    NSString* buttonText = options.cameraPermissionSettingsButtonText;
+    if (buttonText == nil || [buttonText length] == 0) {
+        buttonText = @"Settings";
+    }
+    return buttonText;
+}
+
 - (BOOL)popoverSupported
 {
     return (NSClassFromString(@"UIPopoverController") != nil) &&
@@ -167,11 +207,11 @@ static NSString* MIME_JPEG    = @"image/jpeg";
                  {
                      // Denied; show an alert
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] message:NSLocalizedString(@"Access to the camera has been prohibited; please enable it in the Settings app to continue.", nil) preferredStyle:UIAlertControllerStyleAlert];
-                         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] message:NSLocalizedString([weakSelf cameraPermissionDeniedMessageWithOptions:pictureOptions], nil) preferredStyle:UIAlertControllerStyleAlert];
+                         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString([weakSelf cameraPermissionOKButtonTextWithOptions:pictureOptions], nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                              [weakSelf sendNoPermissionResult:command.callbackId];
                          }]];
-                         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString([weakSelf cameraPermissionSettingsButtonTextWithOptions:pictureOptions], nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
                              [weakSelf sendNoPermissionResult:command.callbackId];
                          }]];
@@ -188,11 +228,11 @@ static NSString* MIME_JPEG    = @"image/jpeg";
                 if (!granted) {
                     // Denied; show an alert
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] message:NSLocalizedString(@"Access to the camera roll has been prohibited; please enable it in the Settings to continue.", nil) preferredStyle:UIAlertControllerStyleAlert];
-                        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] message:NSLocalizedString([weakSelf cameraRollPermissionDeniedMessageWithOptions:pictureOptions], nil) preferredStyle:UIAlertControllerStyleAlert];
+                        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString([weakSelf cameraPermissionOKButtonTextWithOptions:pictureOptions], nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [weakSelf sendNoPermissionResult:command.callbackId];
                         }]];
-                        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString([weakSelf cameraPermissionSettingsButtonTextWithOptions:pictureOptions], nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
                             [weakSelf sendNoPermissionResult:command.callbackId];
                         }]];

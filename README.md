@@ -316,6 +316,10 @@ Optional parameters to customize the camera settings.
 | saveToPhotoAlbum | <code>Boolean</code> |  | Save the image to the photo album on the device after capture.<br />See [Android Quirks](#cameragetpicturesuccesscallback-errorcallback-options). |
 | popoverOptions | <code>[CameraPopoverOptions](#module_CameraPopoverOptions)</code> |  | iOS-only options that specify popover location in iPad. |
 | cameraDirection | <code>[Direction](#module_Camera.Direction)</code> | <code>BACK</code> | Choose the camera to use (front- or back-facing). |
+| cameraPermissionDeniedMessage | <code>string</code> | Access to the camera has been prohibited; please enable it in the Settings app to continue. | iOS-only. Custom message to show when camera access is denied. |
+| cameraRollPermissionDeniedMessage | <code>string</code> | Access to the camera roll has been prohibited; please enable it in the Settings to continue. | iOS-only. Custom message to show when camera roll access is denied. |
+| cameraPermissionOKButtonText | <code>string</code> | OK | iOS-only. Custom text for the OK button in permission denied alerts. |
+| cameraPermissionSettingsButtonText | <code>string</code> | Settings | iOS-only. Custom text for the Settings button in permission denied alerts. |
 
 ---
 

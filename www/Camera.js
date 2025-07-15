@@ -75,6 +75,10 @@ for (const key in Camera) {
  * @property {Boolean} [saveToPhotoAlbum] - Save the image to the photo album on the device after capture.
  * @property {module:CameraPopoverOptions} [popoverOptions] - iOS-only options that specify popover location in iPad.
  * @property {module:Camera.Direction} [cameraDirection=BACK] - Choose the camera to use (front- or back-facing).
+ * @property {string} [cameraPermissionDeniedMessage] - iOS-only. Custom message to show when camera access is denied.
+ * @property {string} [cameraRollPermissionDeniedMessage] - iOS-only. Custom message to show when camera roll access is denied.
+ * @property {string} [cameraPermissionOKButtonText] - iOS-only. Custom text for the OK button in permission denied alerts.
+ * @property {string} [cameraPermissionSettingsButtonText] - iOS-only. Custom text for the Settings button in permission denied alerts.
  */
 
 /**
@@ -142,13 +146,18 @@ cameraExport.getPicture = function (successCallback, errorCallback, options) {
     const saveToPhotoAlbum = !!options.saveToPhotoAlbum;
     const popoverOptions = getValue(options.popoverOptions, null);
     const cameraDirection = getValue(options.cameraDirection, Camera.Direction.BACK);
+    const cameraPermissionDeniedMessage = getValue(options.cameraPermissionDeniedMessage, null);
+    const cameraRollPermissionDeniedMessage = getValue(options.cameraRollPermissionDeniedMessage, null);
+    const cameraPermissionOKButtonText = getValue(options.cameraPermissionOKButtonText, null);
+    const cameraPermissionSettingsButtonText = getValue(options.cameraPermissionSettingsButtonText, null);
 
     if (allowEdit) {
         console.warn('allowEdit is deprecated. It does not work reliably on all platforms. Utilise a dedicated image editing library instead. allowEdit functionality is scheduled to be removed in a future release.');
     }
 
     const args = [quality, destinationType, sourceType, targetWidth, targetHeight, encodingType,
-        mediaType, allowEdit, correctOrientation, saveToPhotoAlbum, popoverOptions, cameraDirection];
+        mediaType, allowEdit, correctOrientation, saveToPhotoAlbum, popoverOptions, cameraDirection,
+        cameraPermissionDeniedMessage, cameraRollPermissionDeniedMessage, cameraPermissionOKButtonText, cameraPermissionSettingsButtonText];
 
     exec(successCallback, errorCallback, 'Camera', 'takePicture', args);
     // XXX: commented out
